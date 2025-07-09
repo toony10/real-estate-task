@@ -17,10 +17,10 @@ export default function Home() {
         </Link>
 
         <Link
-          href="/admin/properties/create"
+          href="/admin"
           className="bg-gray-800 hover:bg-gray-900 text-white px-6 py-3 rounded-2xl shadow-md transition"
         >
-          Add Property (Admin)
+          Admin
         </Link>
       </div>
     </main>

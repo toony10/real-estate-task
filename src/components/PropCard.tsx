@@ -7,7 +7,12 @@ import { IoBedOutline } from "react-icons/io5";
 import { LiaBathSolid } from "react-icons/lia";
 import { TbRulerMeasure } from "react-icons/tb";
 
-export default function PropCard(property: Property) {
+interface PropCardProps {
+    property: Property;
+    isAdmin: boolean;
+}
+
+export default function PropCard({ property, isAdmin }: PropCardProps) {
     return (
         <div className="w-full max-w-sm bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
             <div className="h-48 w-full relative">
@@ -17,6 +22,11 @@ export default function PropCard(property: Property) {
                     fill
                     className="object-cover"
                 />
+                { isAdmin && (
+                    <Link href={ `/admin/properties/${ property.id }/edit` } className="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-md ">
+                        Edit
+                    </Link>
+                ) }
             </div>
 
             <div className="p-4 flex flex-col gap-3 flex-grow">
@@ -53,6 +63,7 @@ export default function PropCard(property: Property) {
                     <button className="mt-3 w-full bg-blue-600 text-white text-sm cursor-pointer font-semibold py-2 rounded-md hover:bg-blue-700 transition">
                         View Details
                     </button>
+
                 </Link>
             </div>
         </div>

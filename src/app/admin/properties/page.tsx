@@ -1,5 +1,5 @@
 import PropCard from '@/components/PropCard';
-import { Property } from '../types';
+import { Property } from '@/app/types';
 import { redirect } from 'next/navigation';
 import {
     Pagination,
@@ -22,7 +22,7 @@ async function getProperties(page: number = 1): Promise<{ data: Property[], tota
     const total = allData.length;
 
     const pagedRes = await fetch(`${ baseUrl }/properties?page=${ page }&limit=${ limit }`, {
-        next: { revalidate: 60 },
+        cache: 'no-store',
     });
 
     if (!pagedRes.ok) throw new Error('Failed to fetch properties');
@@ -52,9 +52,10 @@ export default async function Page(props: {
             <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Available Properties</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
                 { properties.map((property) => (
-                    <PropCard property={ property } isAdmin={ false } key={ property.id } />
+                    <PropCard property={ property } isAdmin={ true } { ...property } key={ property.id } />
                 )) }
             </div>
+
 
             <div className='flex justify-center mt-8'>
                 <Pagination>
