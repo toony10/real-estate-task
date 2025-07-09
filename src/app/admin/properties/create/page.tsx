@@ -33,7 +33,7 @@ export default function CreatePropertyPage() {
         country: '',
         city: '',
         district: '',
-        images: ['', '', '', ''], // 4 صور
+        images: ['', '', '', ''],
         description: '',
     });
 
@@ -88,7 +88,9 @@ export default function CreatePropertyPage() {
                     <form onSubmit={ handleSubmit } className="grid gap-4">
                         { inputFields.map(({ label, name, type, required }) => (
                             <div key={ name } className="grid gap-1">
-                                <Label htmlFor={ name }>{ label }</Label>
+                                <Label htmlFor={ name }>{ label }
+                                    { required && <span className='text-red-500'>*</span>
+                                    } </Label>
                                 <Input
                                     id={ name }
                                     name={ name }
@@ -100,9 +102,11 @@ export default function CreatePropertyPage() {
                             </div>
                         )) }
 
-                        {/* صور العقار */ }
                         <div className="grid gap-1">
-                            <Label>Property Images</Label>
+                            <Label>
+                                Property Images
+                                <span className='text-red-500'>*</span>
+                            </Label>
                             { formData.images.map((image, index) => (
                                 <Input
                                     key={ index }
@@ -116,13 +120,15 @@ export default function CreatePropertyPage() {
                         </div>
 
                         <div className="grid gap-1">
-                            <Label htmlFor="description">Description</Label>
+                            <Label htmlFor="description">
+                                Description
+                                <span className='text-red-500'>*</span>
+                            </Label>
                             <Textarea
                                 id="description"
                                 name="description"
                                 value={ formData.description }
                                 onChange={ handleChange }
-                                required
                             />
                         </div>
 
