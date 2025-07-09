@@ -31,26 +31,22 @@ async function getProperties(page: number = 1): Promise<{ data: Property[], tota
     return { data, total };
 }
 
+export default async function Page({
+    searchParams,
+}: {
+    searchParams?: Record<string, string | string[] | undefined>;
+}) {
+    const currentPage = parseInt(
+        typeof searchParams?.page === 'string' ? searchParams.page : '1'
+    );
 
-
-type Props = {
-    searchParams: { page?: string };
-};
-
-export default async function page({ searchParams }: Props) {
-    const currentPage = parseInt(searchParams.page || '1');
-
-    const { data: properties } = await getProperties(currentPage);
-    const { total } = await getProperties(currentPage);
+    const { data: properties, total } = await getProperties(currentPage);
     const totalPages = Math.ceil(total / 10);
 
+    if (!properties || properties.length === 0 || currentPage < 1) {
+        redirect('/properties?page=1');
+    }
 
-    if (!properties || properties.length === 0) {
-        redirect('/properties?page=1');
-    }
-    if (currentPage < 1) {
-        redirect('/properties?page=1');
-    }
 
     return (
         <main className="min-h-screen bg-white p-6">
