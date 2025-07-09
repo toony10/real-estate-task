@@ -31,14 +31,13 @@ async function getProperties(page: number = 1): Promise<{ data: Property[], tota
     return { data, total };
 }
 
-export default async function Page({
-    searchParams,
-}: {
-    searchParams?: Record<string, string | string[] | undefined>;
+export default async function Page(props: {
+    searchParams?: Promise<{
+        page?: string;
+    }>;
 }) {
-    const currentPage = parseInt(
-        typeof searchParams?.page === 'string' ? searchParams.page : '1'
-    );
+    const searchParams = await props.searchParams;
+    const currentPage = Number(searchParams?.page) || 1;
 
     const { data: properties, total } = await getProperties(currentPage);
     const totalPages = Math.ceil(total / 10);
