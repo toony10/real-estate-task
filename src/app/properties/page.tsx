@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import PropCard from '@/components/PropCard';
 import { Property } from '../types';
 import { redirect } from 'next/navigation';
