@@ -1,4 +1,5 @@
 import { Property } from "@/app/types";
+import { ContactAgentForm } from "@/components/ContactAgentForm";
 import PropGallery from "@/components/PropGalary";
 import { CiLocationOn } from "react-icons/ci";
 import { FaHome } from "react-icons/fa";
@@ -77,9 +78,7 @@ export default async function PropertyPage({
                 </div>
 
                 <div className="mt-6">
-                    <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-                        Contact Agent
-                    </button>
+                    <ContactAgentForm />
                     <div className="mt-10">
                         <h2 className="text-xl font-bold mb-4 text-gray-800">Location on Map</h2>
                         <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-md">
