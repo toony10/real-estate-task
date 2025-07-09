@@ -25,8 +25,12 @@ async function fetchPropertyById(id: string): Promise<Property> {
     return await res.json();
 }
 
-export default async function PropertyPage({ params }: Props) {
-    const property = await fetchPropertyById(params.id);
+export default async function PropertyPage({
+    params,
+}: {
+    params: Promise<{ id: string }>
+}) {
+    const property = await fetchPropertyById((await params).id);
 
     return (
         <div className="min-h-screen p-6 bg-gray-50">
