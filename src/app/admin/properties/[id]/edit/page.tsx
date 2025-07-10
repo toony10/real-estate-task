@@ -9,20 +9,18 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
+const inputFields = [
+    ['Title', 'title'],
+    ['Price', 'price'],
+    ['Bedrooms', 'bedrooms'],
+    ['Bathrooms', 'bathrooms'],
+    ['Area', 'area'],
+    ['Property Type', 'propertyType'],
+    ['Country', 'country'],
+    ['City', 'city'],
+    ['District', 'district'],
+]
 export default function EditPropertyPage() {
-
-    const inputFields = [
-        ['Title', 'title'],
-        ['Price', 'price'],
-        ['Bedrooms', 'bedrooms'],
-        ['Bathrooms', 'bathrooms'],
-        ['Area', 'area'],
-        ['Property Type', 'propertyType'],
-        ['Country', 'country'],
-        ['City', 'city'],
-        ['District', 'district'],
-    ]
-
     const { id } = useParams() as { id: string };
     const router = useRouter();
 
