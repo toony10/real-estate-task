@@ -10,6 +10,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 export default function EditPropertyPage() {
+
+    const inputFields = [
+        ['Title', 'title'],
+        ['Price', 'price'],
+        ['Bedrooms', 'bedrooms'],
+        ['Bathrooms', 'bathrooms'],
+        ['Area', 'area'],
+        ['Property Type', 'propertyType'],
+        ['Country', 'country'],
+        ['City', 'city'],
+        ['District', 'district'],
+    ]
+
     const { id } = useParams() as { id: string };
     const router = useRouter();
 
@@ -100,17 +113,7 @@ export default function EditPropertyPage() {
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={ handleSubmit } className="grid gap-4">
-                        { [
-                            ['Title', 'title'],
-                            ['Price', 'price'],
-                            ['Bedrooms', 'bedrooms'],
-                            ['Bathrooms', 'bathrooms'],
-                            ['Area', 'area'],
-                            ['Property Type', 'propertyType'],
-                            ['Country', 'country'],
-                            ['City', 'city'],
-                            ['District', 'district'],
-                        ].map(([label, name]) => (
+                        { inputFields.map(([label, name]) => (
                             <div key={ name }>
                                 <Label htmlFor={ name }>{ label }</Label>
                                 <Input id={ name } name={ name } value={ (formData as any)[name] } onChange={ handleChange } required />
