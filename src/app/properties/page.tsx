@@ -3,6 +3,7 @@ import PropertiesClient from '@/components/PropertiesClient';
 import Filters from '@/components/Filters';
 import PriceFilters from '@/components/PriceFilters';
 import Search from '@/components/Search';
+import { Suspense } from 'react';
 
 async function getAllProperties(): Promise<Property[]> {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -29,9 +30,11 @@ export default async function Page() {
                 </p>
             </div>
             <div className='w-full max-w-6xl mx-auto mb-8'>
-                <Filters />
-                <PriceFilters />
-                <Search />
+                <Suspense fallback={ <div className="text-center">Loading filters...</div> }>
+                    <Filters />
+                    <PriceFilters />
+                    <Search />
+                </Suspense>
             </div>
             <PropertiesClient properties={ allProperties } />
         </main>

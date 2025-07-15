@@ -2,9 +2,6 @@
 import { Input } from "@/components/ui/input"
 import { Search as SearchIcon } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-
-
 
 export default function Search() {
     const searchParams = useSearchParams();
@@ -24,16 +21,14 @@ export default function Search() {
     return (
         <div className="relative">
             <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Suspense>
-                <Input
-                    type="text"
-                    placeholder='Search properties...'
-                    className="pl-9"
-                    onChange={ (e) => {
-                        handleSearch(e.target.value);
-                    } }
-                />
-            </Suspense>
+            <Input
+                type="text"
+                placeholder='Search properties...'
+                className="pl-9"
+                onChange={ (e) => {
+                    handleSearch(e.target.value);
+                } }
+            />
         </div>
     )
 }
