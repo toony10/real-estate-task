@@ -32,7 +32,13 @@ export default async function Page() {
             <div className='w-full max-w-6xl mx-auto mb-8'>
                 <Suspense fallback={ <div className="text-center">Loading filters...</div> }>
                     <Filters />
+                </Suspense>
+
+                <Suspense fallback={ <div className="text-center">Loading filters...</div> }>
                     <PriceFilters />
+                </Suspense>
+
+                <Suspense fallback={ <div className="text-center">Loading filters...</div> }>
                     <Search />
                 </Suspense>
             </div>
