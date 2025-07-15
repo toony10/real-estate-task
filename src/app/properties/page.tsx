@@ -42,7 +42,11 @@ export default async function Page() {
                     <Search />
                 </Suspense>
             </div>
-            <PropertiesClient properties={ allProperties } />
+
+            {/* Add Suspense boundary around PropertiesClient */ }
+            <Suspense fallback={ <div className="text-center">Loading properties...</div> }>
+                <PropertiesClient properties={ allProperties } />
+            </Suspense>
         </main>
     );
 }

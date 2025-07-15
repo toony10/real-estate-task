@@ -1,7 +1,5 @@
 import { Property } from "@/app/types";
 import { SelectDemo } from "./Select";
-import Search from "./Search";
-import PriceFilters from "./PriceFilters";
 
 async function getFilters() {
     const res = await fetch(`${ process.env.NEXT_PUBLIC_API_BASE_URL }/properties`, {
