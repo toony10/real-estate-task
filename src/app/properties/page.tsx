@@ -1,85 +1,39 @@
-import PropCard from '@/components/PropCard';
 import { Property } from '../types';
-import { redirect } from 'next/navigation';
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
+import PropertiesClient from '@/components/PropertiesClient';
+import Filters from '@/components/Filters';
+import PriceFilters from '@/components/PriceFilters';
+import Search from '@/components/Search';
 
-
-
-async function getProperties(page: number = 1): Promise<{ data: Property[], total: number }> {
-    const limit = 10;
+async function getAllProperties(): Promise<Property[]> {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-    const allRes = await fetch(`${ baseUrl }/properties`);
-    const allData = await allRes.json();
-    const total = allData.length;
-
-    const pagedRes = await fetch(`${ baseUrl }/properties?page=${ page }&limit=${ limit }`, {
+    const res = await fetch(`${ baseUrl }/properties`, {
         next: { revalidate: 60 },
     });
 
-    if (!pagedRes.ok) throw new Error('Failed to fetch properties');
-    const data = await pagedRes.json();
-
-    return { data, total };
+    if (!res.ok) throw new Error('Failed to fetch properties');
+    return await res.json();
 }
 
-export default async function Page(props: {
-    searchParams?: Promise<{
-        page?: string;
-    }>;
-}) {
-    const searchParams = await props.searchParams;
-    const currentPage = Number(searchParams?.page) || 1;
-
-    const { data: properties, total } = await getProperties(currentPage);
-    const totalPages = Math.ceil(total / 10);
-
-    if (!properties || properties.length === 0 || currentPage < 1) {
-        redirect('/properties?page=1');
-    }
-
+export default async function Page() {
+    const allProperties = await getAllProperties();
 
     return (
         <main className="min-h-screen bg-white p-6">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Available Properties</h1>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-                { properties.map((property) => (
-                    <PropCard property={ property } isAdmin={ false } key={ property.id } />
-                )) }
+            <div className="mb-8">
+                <h1 className="text-4xl font-extrabold text-gray-900 bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-center">
+                    Discover Your Dream Property
+                </h1>
+                <p className="text-gray-600 text-center mt-2">
+                    Explore our curated collection of premium properties
+                </p>
             </div>
-
-            <div className='flex justify-center mt-8'>
-                <Pagination>
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious href={ `?page=${ currentPage - 1 }` } />
-                        </PaginationItem>
-                        { Array.from({ length: totalPages }, (_, i) => (
-                            <PaginationItem key={ i + 1 }>
-                                <PaginationLink href={ `?page=${ i + 1 }` } isActive={ currentPage === i + 1 }>
-                                    { i + 1 }
-                                </PaginationLink>
-                            </PaginationItem>
-                        )) }
-                        { properties.length < 10 && currentPage === 1 && (
-                            <PaginationItem className="hidden sm:block">
-                                <PaginationLink href="?page=2">2</PaginationLink>
-                            </PaginationItem>
-                        ) }
-                        <PaginationItem>
-                            <PaginationNext href={ `?page=${ currentPage + 1 }` } />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+            <div className='w-full max-w-6xl mx-auto mb-8'>
+                <Filters />
+                <PriceFilters />
+                <Search />
             </div>
+            <PropertiesClient properties={ allProperties } />
         </main>
     );
 }
