@@ -20,17 +20,20 @@ export default async function Page() {
 
     return (
         <main className="min-h-screen bg-white p-6">
-            <div className="mb-8 border-b border-gray-200 pb-4">
-                <h1 className="text-4xl font-semibold text-gray-900 flex items-center justify-center">
-                    <span className="mr-2">🏠</span>
-                    Property Management Dashboard
+            <div className="mb-8">
+                <h1 className="text-4xl font-extrabold text-gray-900 bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-center">
+                    Discover Your Dream Property
                 </h1>
-                <p className="text-center text-gray-600 mt-2">Manage and monitor your real estate listings</p>
+                <p className="text-gray-600 text-center mt-2">
+                    Explore our curated collection of premium properties
+                </p>
             </div>
-            <Filters />
-            <PriceFilters />
-            <Search />
-            <PropertiesClient properties={ allProperties } isAdmin />
+            <div className='w-full max-w-6xl mx-auto mb-8'>
+                <Filters />
+                <PriceFilters />
+                <Search />
+            </div>
+            <PropertiesClient properties={ allProperties } />
         </main>
     );
 }

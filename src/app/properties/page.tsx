@@ -1,4 +1,4 @@
-import { Property } from '../types';
+import { Property } from '@/app/types';
 import PropertiesClient from '@/components/PropertiesClient';
 import Filters from '@/components/Filters';
 import PriceFilters from '@/components/PriceFilters';
